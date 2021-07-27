@@ -7,6 +7,7 @@ class Jutsu{
     private double _damage;
     
 //Constructors
+
     public Jutsu(String type, String name, String nature, double chakraPrice,String range, double damage){
         _type = type;
         _name = name;
@@ -84,16 +85,12 @@ class Jutsu{
         }
     }
 
-
+// Tests
     public static void main(String []args){
-        Jutsu fireball = new Jutsu("Ninjutsu", "Fireball", "Fire Style", 20, "medium", 35);
+        Jutsu fireball = new Jutsu("Ninjutsu", "Fireball Jutsu", "Fire Style", 20, "medium", 35);
         fireball.setDamage(15);
-        //Jutsu rasengan = new Jutsu("Ninjutsu", "Rasengan", "null", 35, "short", 100);
+        Jutsu rasengan = new Jutsu("Ninjutsu", "Rasengan", "null", 35, "short", 100);
         fireball.printJutsu();
         System.out.println(fireball.getDamage());
-       // PrintJutsu(rasengan);
-
-
-    
     }
 }
