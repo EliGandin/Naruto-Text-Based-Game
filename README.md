@@ -1,5 +1,5 @@
 # Naruto-Text-Based-Game
-This is a text based game. I wrote it in a way that each Character has different charistirickis:
+This is a text based game. I wrote it in a way that each Character has different characteristics:
   1. Name (String)
   2. Affiliation (String)
   3. Chakra (int)
