@@ -68,16 +68,4 @@ public void setAmount(int delta){
 public void printNInjaTool(){
     System.out.println(_name + " x" + _amount);
 }
-
-
-public static void main(String[] args) {
-    NinjaTool kunai = new NinjaTool("physical", "Kunai", "medium", 10 ,10);
-    kunai.setAmount(5);
-    kunai.printNInjaTool();
-
-    NinjaTool waterScroll = new NinjaTool("Sealing Scroll", "Water Scroll", "short", 0, 2);
-    waterScroll.printNInjaTool();
-    
-    System.out.println(kunai.getNinjaTool());
-}
 }

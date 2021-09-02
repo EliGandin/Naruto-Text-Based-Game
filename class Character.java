@@ -1,3 +1,5 @@
+import java.util.Random;
+
 class Character {
     private String _name;
     private String _aff;
@@ -63,6 +65,14 @@ class Character {
         return _inspect;
     }
 
+    public boolean isOut(){
+        if (this.getHP() <= 0)
+            return true;
+        else{
+            return false;
+        }
+    }
+
     // Setters
 
     public void setChakra(double delta) {
@@ -88,6 +98,7 @@ class Character {
     public void setInspect(boolean b) {
         _inspect = b;
     }
+    
     // Printers
 
     public void printName() {
@@ -166,10 +177,16 @@ class Character {
         }
     }
 
-    // Uses
+    // Users
 
     public void useJutsu(int i) {
-        if (getChakra() > _jutsuList[i].getChakraPrice()) {
+        if (getChakra() > _jutsuList[i].getChakraPrice()){
+            if (_jutsuList[i].getType().equals("Taijutsu")){
+                setSPD(i+1);
+                setPhSTR(i+1);
+            }
+            if (_jutsuList[i].getType().equals("Defensive")) 
+                setDEF(2);  
             setChakra(-_jutsuList[i].getChakraPrice());
             _jutsuList[i].printJutsu();
         } else {
@@ -178,10 +195,11 @@ class Character {
     }
 
     public void useJutsu(Character c, int i) {
-        if (getChakra() > _jutsuList[i].getChakraPrice()) {
+        if (getChakra() > _jutsuList[i].getChakraPrice()){  
             setChakra(-_jutsuList[i].getChakraPrice());
             _jutsuList[i].printJutsu();
             c.setHp(-_jutsuList[i].getDamage());
+            System.out.println("-- Successful Hit --");
         } 
         else {
             System.out.println("I don't have enough chakra for this jutsu");
@@ -189,8 +207,11 @@ class Character {
     }
 
     public void useNinjaTool(int i) {
-        if (_ninjaTool[i].getAmount() > 0)
+        if (_ninjaTool[i].getAmount() > 0){
+            if (_ninjaTool[i].getType().equals("Medicine"))
+                setChakra(50);
             _ninjaTool[i].setAmount(-1);
+        }
         else {
             System.out.println("I don't have any " + _jutsuList[i].getName() + "left");
         }
@@ -200,26 +221,37 @@ class Character {
         if (_ninjaTool[i].getAmount() > 0){
             _ninjaTool[i].setAmount(-1);
             c.setHp(-_ninjaTool[i].getDamage());
+            System.out.println("-- Successful Hit --");
         }
         else {
             System.out.println("I don't have any " + _jutsuList[i].getName() + "left");
         }
     }
 
-    public static void main(String[] args) {
-        Jutsu fireball = new Jutsu("Ninjutsu", "Fireball Jutsu", "Fire Style", 20, "medium", 35);
-        Jutsu chidori = new Jutsu("Ninjutsu", "Chidori", "Lightning Style", 35, "short", 55);
-        Character sasuke = new Character("Sasuke Uchiha", "Konoha", 100, 100, 100, 100, 5);
-        sasuke.addJutsu(fireball);
-        sasuke.addJutsu(chidori);
-        sasuke.printJutsuList();
-        // sasuke.useJutsu(0);
-        // System.out.println(sasuke.getChakra());
+    public void phAttack(Character c){
+        Random rand = new Random();
+        int r1 = rand.nextInt(3);
+        if (this.getSPD() >= c.getSPD()){
+            c.setHp(-this.getPhSTR());
+            System.out.println("-- Successful Hit --" + '\n');
+        }
+        else{
+           if (c.getSPD() - this.getSPD() >= r1){
+                c.setHp(-this.getPhSTR());
+                System.out.println("-- Successful Hit --" + '\n');
+        }
+            else{
+                System.out.println("I missed" + '\n');
+            }
+        }
+    }
 
-        NinjaTool kunai = new NinjaTool("physical", "Kunai", "medium", 10 ,10);
-        NinjaTool Shuriken = new NinjaTool("Physical", "Shuriken", "medium", 10, 10);
-        sasuke.addNinjaTool(kunai);
-        sasuke.addNinjaTool(Shuriken);
-        sasuke.printNInjaTool();
+    public void inspect(Character c){
+        if (_inspect == false)
+            System.out.println("You can't inspect your enemy right now");
+        else{
+            System.out.println(c.getName() + "from " +  c.getAff() + "His Stats are: " + "Chakra: " + c.getChakra() + '\n' + 
+            "HP: " + c.getHP() + '\n' + "Physical Strength: " + c.getPhSTR() + '\n' + "DEF: " + c.getDEF() + '\n' + "SPD: " + c.getSPD());
+        }
     }
 }

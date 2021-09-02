@@ -40,7 +40,6 @@ class Jutsu{
         return _nature;
     }
 
- 
     public double getChakraPrice(){
         return _chakraPrice;
     }
@@ -75,22 +74,13 @@ class Jutsu{
         this._damage = this._damage + delta;
     }
 
-// Etc.
+// Printers
 
     public void printJutsu(){
-        if (getNature().equals("null"))
-            System.out.println(getName());
+        if (getNature().equals("null")){
+            System.out.println(getName());}     
         else{
             System.out.println(getNature() + ": " + getName());
         }
-    }
-
-// Tests
-    public static void main(String []args){
-        Jutsu fireball = new Jutsu("Ninjutsu", "Fireball Jutsu", "Fire Style", 20, "medium", 35);
-        fireball.setDamage(15);
-        Jutsu rasengan = new Jutsu("Ninjutsu", "Rasengan", "null", 35, "short", 100);
-        fireball.printJutsu();
-        System.out.println(fireball.getDamage());
     }
 }
